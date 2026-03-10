@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>堂吉诃德旅行地图</title>
+    <title>堂吉诃德章节旅行交互地图</title>
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -13,33 +13,60 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="app">
-      <aside class="panel">
-        <h1>《堂吉诃德》旅行路线图</h1>
-        <p class="subtitle">按章节推进，查看堂吉诃德与桑丘在古西班牙地名下的冒险故事。</p>
+    <div class="shell">
+      <header class="topbar">
+        <div>
+          <h1>《堂吉诃德》章节旅行地图</h1>
+          <p>按章节与地点逐步推进，自动展示剧情、里程与旅行时间（书中数据 / 估算）。</p>
+        </div>
+        <div class="pill">古地名视图 · 交互叙事</div>
+      </header>
 
-        <div class="controls">
-          <label for="chapterRange">章节进度：<span id="chapterLabel"></span></label>
+      <section class="dashboard">
+        <article class="card controls-card">
+          <h2>章节导航</h2>
+          <label for="chapterRange">当前：<span id="chapterLabel"></span></label>
           <input type="range" id="chapterRange" min="1" step="1" />
-          <div class="buttons">
+          <div class="button-row">
             <button id="prevBtn">上一章</button>
             <button id="nextBtn">下一章</button>
+            <button id="playBtn">自动播放</button>
           </div>
-        </div>
+          <p id="chapterSummary" class="muted"></p>
+        </article>
 
-        <section>
-          <h2>当前章节摘要</h2>
-          <p id="chapterSummary"></p>
-        </section>
+        <article class="card metrics-card">
+          <h2>旅程统计</h2>
+          <dl class="metrics">
+            <div>
+              <dt>已解锁地点</dt>
+              <dd id="metricStops">0</dd>
+            </div>
+            <div>
+              <dt>累计里程</dt>
+              <dd id="metricDistance">0 km</dd>
+            </div>
+            <div>
+              <dt>累计旅行时间</dt>
+              <dd id="metricDuration">0 天</dd>
+            </div>
+          </dl>
+        </article>
 
-        <section>
-          <h2>地点故事</h2>
-          <div id="storyBox">点击地图上的地点查看详情。</div>
-        </section>
-      </aside>
-      <main>
+        <article class="card story-card">
+          <h2>地点剧情（自动聚焦）</h2>
+          <div id="storyBox">切换章节或点击地图地点后，将在这里显示详细剧情。</div>
+        </article>
+
+        <article class="card timeline-card">
+          <h2>章节地点清单</h2>
+          <ul id="locationList"></ul>
+        </article>
+      </section>
+
+      <section class="map-wrap card">
         <div id="map" aria-label="堂吉诃德旅行地图"></div>
-      </main>
+      </section>
     </div>
 
     <script
