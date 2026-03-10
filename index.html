@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>堂吉诃德章节旅行交互地图</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="map-shell">
+      <div id="map" aria-label="堂吉诃德旅行地图"></div>
+
+      <section class="floating-panel panel-header" data-panel="header">
+        <div class="panel-head">
+          <h1>《堂吉诃德》章节旅行地图</h1>
+          <button class="min-btn" data-minimize="header" aria-label="最小化标题">—</button>
+        </div>
+        <p>地图为主体视图；面板可收起为图标。按章节与地点推进，查看剧情、里程与旅行时间。</p>
+      </section>
+
+      <section class="floating-panel panel-controls" data-panel="controls">
+        <div class="panel-head">
+          <h2>章节导航</h2>
+          <button class="min-btn" data-minimize="controls" aria-label="最小化导航">—</button>
+        </div>
+        <label for="chapterRange">当前：<span id="chapterLabel"></span></label>
+        <input type="range" id="chapterRange" min="1" step="1" />
+        <div class="button-row">
+          <button id="prevBtn">上一章</button>
+          <button id="nextBtn">下一章</button>
+          <button id="playBtn">自动播放</button>
+        </div>
+        <p id="chapterSummary" class="muted"></p>
+      </section>
+
+      <section class="floating-panel panel-story" data-panel="story">
+        <div class="panel-head">
+          <h2>地点剧情</h2>
+          <button class="min-btn" data-minimize="story" aria-label="最小化剧情">—</button>
+        </div>
+        <div id="storyBox">切换章节或点击地图地点后，将在这里显示详细剧情。</div>
+      </section>
+
+      <section class="floating-panel panel-side" data-panel="side">
+        <div class="panel-head">
+          <h2>统计与清单</h2>
+          <button class="min-btn" data-minimize="side" aria-label="最小化侧栏">—</button>
+        </div>
+        <dl class="metrics">
+          <div><dt>已解锁地点</dt><dd id="metricStops">0</dd></div>
+          <div><dt>累计里程</dt><dd id="metricDistance">0 km</dd></div>
+          <div><dt>累计旅行时间</dt><dd id="metricDuration">0 天</dd></div>
+        </dl>
+        <ul id="locationList"></ul>
+      </section>
+
+      <nav class="panel-dock" aria-label="面板快捷栏">
+        <button class="dock-btn" data-restore="header" title="展开标题">🧭</button>
+        <button class="dock-btn" data-restore="controls" title="展开导航">🎚️</button>
+        <button class="dock-btn" data-restore="story" title="展开剧情">📖</button>
+        <button class="dock-btn" data-restore="side" title="展开统计">📌</button>
+      </nav>
+    </main>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="app.js"></script>
+  </body>
+</html>
