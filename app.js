@@ -329,3 +329,48 @@ playBtn.addEventListener("click", () => {
 });
 
 render(0);
+
+const panelElements = document.querySelectorAll(".floating-panel");
+const minimizeButtons = document.querySelectorAll("[data-minimize]");
+const restoreButtons = document.querySelectorAll("[data-restore]");
+
+function syncDockButton(panelName, isMinimized) {
+  const btn = document.querySelector(`[data-restore='${panelName}']`);
+  if (!btn) return;
+  btn.classList.toggle("hidden", !isMinimized);
+}
+
+function minimizePanel(panelName) {
+  const panel = document.querySelector(`.floating-panel[data-panel='${panelName}']`);
+  if (!panel) return;
+  panel.classList.add("minimized");
+  syncDockButton(panelName, true);
+}
+
+function restorePanel(panelName) {
+  const panel = document.querySelector(`.floating-panel[data-panel='${panelName}']`);
+  if (!panel) return;
+  panel.classList.remove("minimized");
+  syncDockButton(panelName, false);
+  setTimeout(() => map.invalidateSize(), 180);
+}
+
+minimizeButtons.forEach((btn) => {
+  btn.addEventListener("click", () => minimizePanel(btn.dataset.minimize));
+});
+
+restoreButtons.forEach((btn) => {
+  btn.addEventListener("click", () => restorePanel(btn.dataset.restore));
+  syncDockButton(btn.dataset.restore, false);
+});
+
+if (window.matchMedia("(max-width: 760px)").matches) {
+  minimizePanel("story");
+  minimizePanel("side");
+}
+
+panelElements.forEach((panel) => {
+  if (!panel.classList.contains("minimized")) {
+    syncDockButton(panel.dataset.panel, false);
+  }
+});
