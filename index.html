@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>堂吉诃德旅行地图</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="panel">
+        <h1>《堂吉诃德》旅行路线图</h1>
+        <p class="subtitle">按章节推进，查看堂吉诃德与桑丘在古西班牙地名下的冒险故事。</p>
+
+        <div class="controls">
+          <label for="chapterRange">章节进度：<span id="chapterLabel"></span></label>
+          <input type="range" id="chapterRange" min="1" step="1" />
+          <div class="buttons">
+            <button id="prevBtn">上一章</button>
+            <button id="nextBtn">下一章</button>
+          </div>
+        </div>
+
+        <section>
+          <h2>当前章节摘要</h2>
+          <p id="chapterSummary"></p>
+        </section>
+
+        <section>
+          <h2>地点故事</h2>
+          <div id="storyBox">点击地图上的地点查看详情。</div>
+        </section>
+      </aside>
+      <main>
+        <div id="map" aria-label="堂吉诃德旅行地图"></div>
+      </main>
+    </div>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="app.js"></script>
+  </body>
+</html>
